@@ -10,7 +10,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.ui.Modifier
 import androidx.navigation.compose.rememberNavController
 import com.cusufcan.marketrehberim.navigation.NavigationGraph
-import com.cusufcan.marketrehberim.navigation.Screen.Main
+import com.cusufcan.marketrehberim.navigation.Screen.Home
 import com.cusufcan.marketrehberim.ui.theme.MyappTheme
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -23,7 +23,7 @@ class MainActivity : ComponentActivity() {
             MyappTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
                     val navController = rememberNavController()
-                    val startDestination = Main
+                    val startDestination = Home
                     NavigationGraph(
                         navController = navController,
                         startDestination = startDestination,

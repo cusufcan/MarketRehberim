@@ -1,6 +1,5 @@
 package com.cusufcan.marketrehberim.di
 
-import com.cusufcan.marketrehberim.data.source.remote.MainService
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -19,9 +18,9 @@ object NetworkModule {
             .addConverterFactory(GsonConverterFactory.create())
             .build()
     }
-
-    @Provides
-    fun provideMainService(retrofit: Retrofit): MainService {
-        return retrofit.create(MainService::class.java)
-    }
+//
+//    @Provides
+//    fun provideMainService(retrofit: Retrofit): MainService {
+//        return retrofit.create(MainService::class.java)
+//    }
 }
