@@ -1,0 +1,3 @@
+package com.cusufcan.marketrehberim.domain.repository
+
+interface MainRepository
