@@ -3,7 +3,11 @@ package com.cusufcan.marketrehberim.navigation
 import androidx.compose.animation.AnimatedContentTransitionScope
 import androidx.compose.animation.core.tween
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
+import androidx.core.net.toUri
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -12,6 +16,7 @@ import com.cusufcan.marketrehberim.navigation.Screen.Home
 import com.cusufcan.marketrehberim.navigation.Screen.Result
 import com.cusufcan.marketrehberim.ui.home.HomeScreen
 import com.cusufcan.marketrehberim.ui.result.ResultScreen
+import com.cusufcan.marketrehberim.ui.result.ResultViewModel
 
 @Composable
 fun NavigationGraph(
@@ -66,10 +71,28 @@ fun NavigationGraph(
 
         composable<Result> {
             val args = it.toRoute<Result>()
+            val resultViewModel: ResultViewModel = hiltViewModel()
+
+            val uri = args.uri
+            val name = args.name
+
+            val context = LocalContext.current
+            val contentResolver = context.contentResolver
+
+            LaunchedEffect(uri, name) {
+                if (uri != null) {
+                    resultViewModel.fetchDataFromImage(
+                        uri = uri.toUri(),
+                        contentResolver = contentResolver,
+                    )
+                } else if (name != null) {
+                    resultViewModel.fetchDataFromName(name)
+                }
+            }
+
             ResultScreen(
+                resultViewModel = resultViewModel,
                 navController = navController,
-                uri = args.uri,
-                name = args.name,
             )
         }
     }
